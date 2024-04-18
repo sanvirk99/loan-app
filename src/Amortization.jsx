@@ -65,23 +65,27 @@ const Amortization = (props) => {
     const loanAmount = props.loanAmount
     const monthlyPayment = props.monthlyPayment;
 
-    const [payments, setPayments] = useState([])
+   // const [payments, setPayments] = useState([])
+    const payments=props.payments;
+    const setPayments=props.setPayments;
+    const lumps=props.lumps; //only read lumps which will change the payments 
 
     useEffect(() => {
         let paymentArray = arrayFactory(loanAmount, interestRate, loanTermYear);
         console.log(paymentArray);
         setPayments(paymentArray);
-    }, [loanAmount, interestRate, loanTermYear]);
+    }, [monthlyPayment]);
 
     return (
         <div>
+            <h3>Amortization Schedule</h3>
             <table>
                 <thead>
                     <tr>
                         <th>#month</th>
                         <th>payment</th>
                         <th>principal</th>
-                        <th>intrest</th>
+                        <th>interest</th>
                     </tr>
                 </thead>
                 <tbody>

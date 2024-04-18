@@ -28,34 +28,46 @@ function currentMonthPayment(principal,annualInterestRate,months){
   
 }
 
+
+
+
 function calculatePrincipalPaid(total,interest){
 
   return (total-interest);
 }
 
-function arrayFactory(principal, annualInterestRate, loanTermYears){
+
+function arrayFactoryLumps(loan_amount, annualInterestRate, loanTermYears,lumps){
   loanTermYears=Math.floor(loanTermYears)
   let months=loanTermYears*12;
   let arr=[];
-  let payment=currentMonthPayment(principal,annualInterestRate,months)
+  let payment=currentMonthPayment(loan_amount,annualInterestRate,months)
+  let loan_balance=loan_amount;
   let total_interest=0;
-  for(let i=0;i<months;i++){
+  let i=0;
+  while(loan_balance>0){
 
-    if(payment>principal){
-      console.log(principal);
-      payment=currentMonthPayment(principal,annualInterestRate,months-i)
+    if(payment>loan_balance){ //should be triggered when the last payment is less than the principal
+      console.log(loan_balance);
+      payment=currentMonthPayment(loan_balance,annualInterestRate,1)
       console.log(payment);
     }
-    let interest=calculateInterestForMonth(principal,annualInterestRate)
-    let towardsPrincipal=payment-interest;
+
+    //check if there is are lumps for this month
+    let lump=lumps.find((lump)=>lump.month===(i+1))?.amount || 0;
+    let interest=calculateInterestForMonth(loan_balance,annualInterestRate)
+    let towardsPrincipal=payment-interest+lump;
     total_interest+=interest;
-    principal=principal-towardsPrincipal;
-    arr.push(new monthlyPayment(payment,towardsPrincipal,interest,(i+1),principal,total_interest))
-    
+    loan_balance=loan_balance-towardsPrincipal;
+    arr.push(new monthlyPayment(payment+lump,towardsPrincipal,interest,(i+1),loan_balance,total_interest))
+    i++;
   }
 
   return arr;
+
+
 }
+
 
 const Amortization = (props) => { 
 
@@ -71,10 +83,16 @@ const Amortization = (props) => {
     const lumps=props.lumps; //only read lumps which will change the payments 
 
     useEffect(() => {
-        let paymentArray = arrayFactory(loanAmount, interestRate, loanTermYear);
+        let paymentArray = arrayFactoryLumps(loanAmount, interestRate, loanTermYear,lumps);
         console.log(paymentArray);
         setPayments(paymentArray);
-    }, [monthlyPayment]);
+    }, [monthlyPayment,lumps]);
+
+    useEffect(() => {
+
+        //acount the lumps and recalculate the payments
+
+    },[lumps])
 
     return (
         <div>
@@ -86,15 +104,19 @@ const Amortization = (props) => {
                         <th>payment</th>
                         <th>principal</th>
                         <th>interest</th>
+                        <th>loan balance</th>
+                        <th>accumlated interest</th>
                     </tr>
                 </thead>
                 <tbody>
                     {payments.map((item) => (
                         <tr key={item.month}>
                             <td>{item.month}</td>
-                            <td>{item.payment.toFixed(2)}</td>
+                            <td>{(item.payment).toFixed(2)}</td>
                             <td>{item.principal.toFixed(2)}</td>
-                            <td>{item.interest.toFixed(2)}</td>
+                            <td>{(item.interest).toFixed(2)}</td>
+                            <td>{(item.loan_balance).toFixed(2)}</td>
+                            <td>{(item.interest_paid).toFixed(2)}</td>
                         </tr>
                     ))}
                 </tbody>

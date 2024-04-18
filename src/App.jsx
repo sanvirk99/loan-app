@@ -77,50 +77,50 @@ import LumpSelection from './LumpSelection'
 
 
 // //check boundries 
-// function lumpArrayFactory(arr,month,lump,interestRate){
+function lumpArrayFactory(arr,month,lump,interestRate){
 
-//   //copy the array < then the month , update amounts 
-//   const sliceArr=arr.slice(0,month-1).map(item => {
-//     return{...item}
-//   })  
-//   console.log('lump factory')
-//   console.log(arr);
-//   console.log(month)
-//   console.log(sliceArr)
-//   console.log(sliceArr[sliceArr.length-1].loan_balance)
+  //copy the array < then the month , update amounts 
+  const sliceArr=arr.slice(0,month-1).map(item => {
+    return{...item}
+  })  
+  console.log('lump factory')
+  console.log(arr);
+  console.log(month)
+  console.log(sliceArr)
+  console.log(sliceArr[sliceArr.length-1].loan_balance)
 
-//   //create the new payment and adjust the balacne for the nth month
-//   //create the next based on the this month unitil balacne 0
+  //create the new payment and adjust the balacne for the nth month
+  //create the next based on the this month unitil balacne 0
 
-//   const lastItem = arr[sliceArr.length];
-//   let newTranscation = new monthlyPayment(lastItem.payment + Number(lump), lastItem.principal + Number(lump), lastItem.interest, lastItem.month, lastItem.loan_balance - lump, lastItem.total_interest);
-//   sliceArr.push(newTranscation);
+  const lastItem = arr[sliceArr.length];
+  let newTranscation = new monthlyPayment(lastItem.payment + Number(lump), lastItem.principal + Number(lump), lastItem.interest, lastItem.month, lastItem.loan_balance - lump, lastItem.total_interest);
+  sliceArr.push(newTranscation);
 
-//   let payment=arr[0].payment //keeping same payment
+  let payment=arr[0].payment //keeping same payment
   
-//   while(sliceArr[sliceArr.length-1].loan_balance>0){
+  while(sliceArr[sliceArr.length-1].loan_balance>0){
 
-//     let last=sliceArr[sliceArr.length-1];
-//     let monthLeft=arr.length-last.month;
-//     if(payment>last.loan_balance){
-//       console.log(last.loan_balancel);
-//       payment=currentMonthPayment(last.loan_balance,interestRate,1)
-//       console.log(payment);
-//     }
-//     let interest=calculateInterestForMonth(last.loan_balance,interestRate);
-//     let paidToPrincipal=payment-interest;
-//     newTranscation=new monthlyPayment(payment,paidToPrincipal,interest,last.month+1,last.loan_balance-paidToPrincipal,last.total_interest+interest);
-//     sliceArr.push(newTranscation);
-
-
-
-//   }
-
-//   console.log(sliceArr)
-//   return sliceArr
+    let last=sliceArr[sliceArr.length-1];
+    let monthLeft=arr.length-last.month;
+    if(payment>last.loan_balance){
+      console.log(last.loan_balancel);
+      payment=currentMonthPayment(last.loan_balance,interestRate,1)
+      console.log(payment);
+    }
+    let interest=calculateInterestForMonth(last.loan_balance,interestRate);
+    let paidToPrincipal=payment-interest;
+    newTranscation=new monthlyPayment(payment,paidToPrincipal,interest,last.month+1,last.loan_balance-paidToPrincipal,last.total_interest+interest);
+    sliceArr.push(newTranscation);
 
 
-// }
+
+  }
+
+  console.log(sliceArr)
+  return sliceArr
+
+
+}
 
 
 // const List = (props) => {

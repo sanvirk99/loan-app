@@ -17,11 +17,17 @@ const LumpSelection = (props) => {
     const setLumps=props.setLumps;
     const payments=props.payments;  
 
+
+
     useEffect(() => {
         
-        //when payments modified, need lumps no longer taken into account should be removed 
+     //when payments modified, need lumps no longer taken into account should be removed 
 
-    },[payments])
+
+     //for testing populate lumps
+     setLumps([new lumpObject(1,555)])
+
+    },[])
 
 
     //just create new month if the month already exists
@@ -34,6 +40,18 @@ const LumpSelection = (props) => {
         let temp=[...lumps];
         let month=parseInt(event.target.lumpSelection.value);
         let amount=Number(event.target.lumpAmount.value);
+
+        if(temp.find((lump)=>lump.month===month)){
+            console.log('month already exists')
+            
+            //prompt message which disapears after 3 seconds
+            //choice update
+            let index=temp.findIndex((lump)=>lump.month===month);
+            temp[index].amount+=amount;
+            setLumps(temp);
+            return;
+        }
+
         temp.push(new lumpObject(month,amount))
         setLumps(temp);
        
@@ -55,10 +73,9 @@ const LumpSelection = (props) => {
             <h3> Lump Selection</h3>
             <form onSubmit={handleSubmit}>
             <select name='lumpSelection' id='lumpSelection'>
-                <option value='1'>month 1</option>
-                <option value='2'>month 2</option>
-                <option value='3'>month 3</option>
-                <option value='4'>month 4</option>
+                {payments.map((payment,index) => {
+                    return <option key={payment.month} value={payment.month}> {payment.month}</option>
+                })}
             </select>
             <input type='number' name='lumpAmount' id='lumpAmount' />
             <button> Add Lump</button>

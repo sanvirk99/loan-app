@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Calculator from './Calculator'
 import Input from './Input'
+import Amortization from './Amortization'
 
 // function calculateMonthlyPayment(principal, annualInterestRate, loanTermYears) {
 //   loanTermYears=Math.floor(loanTermYears);
@@ -288,51 +289,7 @@ import Input from './Input'
 
 //   return (
 
-//     <div>
-//       <form onSubmit={handleSubmit}>
-//       <div>
-//         <label>Loan Amount:</label>
-//         <input
-//           type="number"
-//           value={loanAmount}
-//           onChange={handleLoanAmountChange}
-//           required
-//         />
-//       </div>
-//       <div>
-//         <label>Interest Rate (%):</label>
-//         <input
-//           type="number"
-//           value={interestRate}
-//           onChange={handleInterestRateChange}
-//           required
-//         />
-//       </div>
-//       <div>
-//         <label>Loan Term (years):</label>
-//         <input
-//           type="number"
-//           value={loanTerm}
-//           onChange={handleLoanTermChange}
-//           required
-//         />
-//       </div>
-//       <div>
-//         <label>Loan Term (month):</label>
-//         <input
-//           type="number"
-//           value={loanTermMonth}
-//           onChange={handleLoanTermChange}
-//           required
-//         />
-//       </div>
-//       <button>Calculate</button>
-//     </form>
-//     <p>{info}</p>  
-//     <List payments={payments} setPayments={setPayments} interestRate={interestRate} loanTerm={loanTerm}></List>
-//     <p>values rounded to second decimal place</p>
-//     </div>
-  
+//     <></>
     
 //   );
 
@@ -346,7 +303,7 @@ function App() {
   const [loanAmount, setLoanAmount] = useState(5000);
   const [interestRate, setInterestRate] = useState(4.5);
   const [loanTermYear, setLoanTermYear] = useState(1);
-
+  const [monthlyPayment, setMonthlyPayment] = useState(0);
 
   return (
     <>
@@ -359,13 +316,18 @@ function App() {
         setInterestRate={setInterestRate}
         setLoanTermYear={setLoanTermYear}
       />
-      <Calculator
+      <Calculator //read the values from the input and calculate the monthly payment and interest return a info string
         loanAmount={loanAmount}
         interestRate={interestRate}
         loanTermYear={loanTermYear}
-        setLoanAmount={setLoanAmount}
-        setInterestRate={setInterestRate}
-        setLoanTermYear={setLoanTermYear}
+        monthlyPayment={monthlyPayment}
+        setMonthlyPayment={setMonthlyPayment}
+      />
+      <Amortization //read the values from the input and calculate the monthly payment and interest return a info string
+        loanAmount={loanAmount}
+        interestRate={interestRate}
+        loanTermYear={loanTermYear}
+        monthlyPayment={monthlyPayment}
       />
     </>
   )

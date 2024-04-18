@@ -4,7 +4,7 @@ import { useState } from "react";
 const Input = (props) =>{
 
    
-    const loanTerm=props.loanTerm;
+    const loanTermYear=props.loanTermYear;
     const interestRate=props.interestRate;
     const loanAmount=props.loanAmount
 
@@ -63,7 +63,7 @@ const Input = (props) =>{
           <label>Loan Term (years):</label>
           <input
             type="number"
-            value={loanTerm}
+            value={loanTermYear}
             onChange={handleLoanTermChange}
             required
           />

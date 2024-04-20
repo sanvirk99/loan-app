@@ -45,6 +45,8 @@ function arrayFactoryLumps(loan_amount, annualInterestRate, loanTermYears,lumps)
   let loan_balance=loan_amount;
   let total_interest=0;
   let i=0;
+  
+  let lumps_applied=[]
   while(loan_balance>0){
 
     if(payment>loan_balance){ //should be triggered when the last payment is less than the principal
@@ -60,8 +62,11 @@ function arrayFactoryLumps(loan_amount, annualInterestRate, loanTermYears,lumps)
     total_interest+=interest;
     loan_balance=loan_balance-towardsPrincipal;
     arr.push(new monthlyPayment(payment+lump,towardsPrincipal,interest,(i+1),loan_balance,total_interest))
+    lumps_applied.push(i+1);
     i++;
   }
+
+  const filteredLumps=lumps.filter((lump)=>!lumps_applied.includes(lump.month));
 
   return arr;
 
@@ -81,7 +86,7 @@ const Amortization = (props) => {
     const payments=props.payments;
     const setPayments=props.setPayments;
     const lumps=props.lumps; //only read lumps which will change the payments 
-
+    //const setLumps=props.setLumps;  //only set lumps which will change the payments
     useEffect(() => {
         let paymentArray = arrayFactoryLumps(loanAmount, interestRate, loanTermYear,lumps);
         console.log(paymentArray);

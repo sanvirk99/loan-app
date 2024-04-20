@@ -16,24 +16,15 @@ const LumpSelection = (props) => {
     const lumps=props.lumps;
     const setLumps=props.setLumps;
     const payments=props.payments;  
-
-
-
-    useEffect(() => {
-        
-     //when payments modified, need lumps no longer taken into account should be removed 
-
-
-     //for testing populate lumps
-     setLumps([new lumpObject(1,555)])
-
-    },[])
-
+    const [infoMsg, setInfoMsg] = useState(null);
 
     //just create new month if the month already exists
     //may need modification when recalculating the payments but can i can squash all months
     const handleSubmit = (event) => { 
         event.preventDefault();
+        if(infoMsg!==null){
+            return;
+        }
         console.log(event.target)
         console.log(event.target.lumpSelection.value)
         console.log(event.target.lumpAmount.value)
@@ -42,16 +33,12 @@ const LumpSelection = (props) => {
         let amount=Number(event.target.lumpAmount.value);
 
         if(temp.find((lump)=>lump.month===month)){
-            console.log('month already exists')
-            
-            //prompt message which disapears after 3 seconds
-            //choice update
+            console.log('month already exists addind to existing lump')
             let index=temp.findIndex((lump)=>lump.month===month);
             temp[index].amount+=amount;
             setLumps(temp);
             return;
         }
-
         temp.push(new lumpObject(month,amount))
         setLumps(temp);
        
@@ -65,6 +52,47 @@ const LumpSelection = (props) => {
 
     }
 
+    const [selectedMonth, setSelectedMonth] = useState(1);
+    const [input, setInput] = useState('');
+    const [lumpAmount, setLumpAmount] = useState(0);
+
+    useEffect(() => {
+        
+        if(payments.length===0){ //edge catch if the payments array is empty usally on start up this compoenets is rendered before the payments are calculated
+            return;
+        }
+       
+        if(lumpAmount<0){
+            setInfoMsg('Enter valid amount greater than 0')
+            return;
+        }
+        
+        let balance=payments[selectedMonth-1].loan_balance;
+        if(lumpAmount>balance){
+            setInfoMsg('Lump amount exceeds loan balance, Enter valid amount')
+            return;
+        }
+        setInfoMsg(null)
+
+    },[selectedMonth,lumpAmount,payments])
+
+  
+    useEffect(()=>{ //when ever new lump is created clear the input and set lump amount to 0
+        setInput('') //using two variables to clear the input field and pervent the value 0 from being displayed
+        setLumpAmount(0)
+    },[lumps])
+
+    const handelSelection = (event) => {
+        console.log(event.target.value)
+        setSelectedMonth(event.target.value)
+    }
+
+    const handelInput = (event) => {    
+        console.log(event.target.value)
+        setInput(event.target.value)
+        let amount=Number(event.target.value);
+        setLumpAmount(amount)        
+    }
 
 
     return (
@@ -72,16 +100,18 @@ const LumpSelection = (props) => {
         <div>
             <h3> Lump Selection</h3>
             <form onSubmit={handleSubmit}>
-            <select name='lumpSelection' id='lumpSelection'>
-                {payments.map((payment,index) => {
+            <label> Select Month</label>
+            <select name='lumpSelection' id='lumpSelection' onChange={handelSelection}>
+                {payments.map((payment) => {
                     return <option key={payment.month} value={payment.month}> {payment.month}</option>
                 })}
             </select>
-            <input type='number' name='lumpAmount' id='lumpAmount' />
+            <label> Lump Amount $</label>
+            <input type='number' name='lumpAmount' id='lumpAmount' step="0.01" min="0" onInput={handelInput} value={input} />
             <button> Add Lump</button>
             </form>   
         </div> 
-        
+        <p style={{ color: 'red' }}>{infoMsg}</p>
         {lumps.length>0 && <div>
             <h3> Lump Summary</h3>
             <ul>

@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react'
 import Calculator from './Calculator'
 import Input from './Input'
 import Amortization from './Amortization'
-import LumpSelection from './LumpSelection' 
+import LumpSelection from './LumpSelection'
 
 
-function calculateMonthlyPayment(principal, annualInterestRate, loanTermYears) {
-  loanTermYears = Math.floor(loanTermYears);
+function calculateMonthlyPayment(principal, annualInterestRate, loanTermMonths) {
+
   const monthlyInterestRate = (annualInterestRate / 100) / 12;
-  const numberOfPayments = loanTermYears * 12;
+  const numberOfPayments = loanTermMonths;
 
   const monthlyPayment = principal * monthlyInterestRate / (1 - Math.pow(1 + monthlyInterestRate, -numberOfPayments));
   return monthlyPayment;
@@ -20,6 +20,8 @@ function App() {
   const [loanAmount, setLoanAmount] = useState(5000);
   const [interestRate, setInterestRate] = useState(4.5);
   const [loanTermYear, setLoanTermYear] = useState(1);
+  const [loanTermMonths, setLoanTermMonths] = useState(12);
+  const [amoortizedMonths, setAmortizedMonths] = useState(12);
   const [monthlyPayment, setMonthlyPayment] = useState(0);
   const [totalPayment, setTotalPayment] = useState(0);
   const [totalInterest, setTotalInterest] = useState(0);
@@ -27,11 +29,11 @@ function App() {
   const [lumps, setLumps] = useState([]);
 
   useEffect(() => {
-    let monthlyPayment = calculateMonthlyPayment(loanAmount, interestRate, loanTermYear)
+    let monthlyPayment = calculateMonthlyPayment(loanAmount, interestRate, loanTermMonths)
     console.log(`Monthly Payment = ${monthlyPayment} `)
     setMonthlyPayment(monthlyPayment)
 
-  }, [loanAmount, interestRate, loanTermYear])
+  }, [loanAmount, interestRate, loanTermMonths])
 
   useEffect(() => {
     if (payments.length === 0) {
@@ -46,6 +48,7 @@ function App() {
       totalInterest += payment.interest
     })
 
+    setAmortizedMonths(payments.length)
     setTotalPayment(totalPayment)
     setTotalInterest(totalInterest)
 
@@ -53,19 +56,49 @@ function App() {
 
   return (
     <>
-      <h1>Loan Calculator with insights</h1>
-      <Input
-        loanAmount={loanAmount}
-        interestRate={interestRate}
-        loanTermYear={loanTermYear}
-        setLoanAmount={setLoanAmount}
-        setInterestRate={setInterestRate}
-        setLoanTermYear={setLoanTermYear}
-      />
-      <h3>Loan Summary</h3>
-      <p>Monthly Payment: {monthlyPayment.toFixed(2)}</p>
-      <p>Interest Paid Duration of Loan: {totalInterest.toFixed(2)}</p>
 
+      <div className='container'>
+        <h1>Loan Analysis </h1>
+        <Input
+          loanAmount={loanAmount}
+          interestRate={interestRate}
+          loanTermYear={loanTermYear}
+          setLoanAmount={setLoanAmount}
+          setInterestRate={setInterestRate}
+          setLoanTermYear={setLoanTermYear}
+          setLoanTermMonths={setLoanTermMonths}
+        />
+        <h3>Loan Summary</h3>
+        <table>
+          <tbody>
+            <tr>
+              <td>Loan Amount $:</td>
+              <td>{loanAmount}</td>
+            </tr>
+            <tr>
+              <td>Interest Rate APR %:</td>
+              <td>{interestRate}</td>
+            </tr>
+            <tr>
+              <td>Loan Term Months:</td>
+              <td>{loanTermMonths}</td>
+            </tr>
+            <tr>
+              <td>Monthly Payment:</td>
+              <td>{monthlyPayment.toFixed(2)}</td>
+            </tr>
+            <tr>
+              <td>Interest Paid Duration of Loan:</td>
+              <td>{totalInterest.toFixed(2)}</td>
+            </tr>
+            <tr>
+              <td>Amortized Months:</td>
+              <td>{amoortizedMonths}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>Note adding lump payments will reduce total interest paid over term and change duration </p>
+      
       <LumpSelection //make this handel only input and output the values, its months selection is dependedent on the amortization
         payments={payments} //only read
         lumps={lumps}
@@ -75,15 +108,16 @@ function App() {
         loanAmount={loanAmount}
         interestRate={interestRate}
         loanTermYear={loanTermYear}
+        loanTermMonths={loanTermMonths}
         monthlyPayment={monthlyPayment}
 
         payments={payments}
         setPayments={setPayments} //mondify the payments
         lumps={lumps}
-        //setLumps={setLumps}
+      //setLumps={setLumps}
 
       />
-
+   </div>
     </>
   )
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import './styles/input.css';
+
 
 const Input = (props) => {
 

@@ -3,7 +3,7 @@ import Calculator from './Calculator'
 import Input from './Input'
 import Amortization from './Amortization'
 import LumpSelection from './LumpSelection'
-
+import './styles/styles.css'
 
 function calculateMonthlyPayment(principal, annualInterestRate, loanTermMonths) {
 
@@ -69,7 +69,7 @@ function App() {
           setLoanTermMonths={setLoanTermMonths}
         />
         <h3>Loan Summary</h3>
-        <table>
+        <table className='styled-table'>
           <tbody>
             <tr>
               <td>Loan Amount $:</td>

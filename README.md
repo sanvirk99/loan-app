@@ -10,11 +10,15 @@
 
 ## Purpose
 
-The purpose of this application is to provide a tool for users to analyze different loan scenarios. It allows users to dynamically interact with the loan parameters and see the changes in real-time. This can be particularly useful for understanding the impact of making lump sum payments on the overall loan.
+
+This application helps individuals analyze different loan scenarios by letting them adjust loan parameters and see changes in the loan schedule and interest. It's useful for understanding how extra payments affect overall loans. The idea for the app came from the need for a consistent tool for managing lump sum payments.
+
+It's easy to use, just input your loan details and see how extra payments impact your loan. You'll also get a detailed loan schedule to track your progress. The app is designed for everyone, even if you're not a finance expert. It's meant to help you manage your loans better and make smarter financial decisions.
 
 
 ## Features
 
 - Users can input the loan amount, interest rate APR, loan term, and monthly payment.
+- Users can see the total interest paid over the life of the loan.
 - Users can input additional payments to see the impact on the loan.
 - Users can see the amortization schedule for the loan.

@@ -10,7 +10,6 @@
   color: rgba(0, 0, 0, 0.955);
 
   align-items: center;
-  justify-content: center;
   text-align: center;
 
 }
@@ -76,7 +75,7 @@ select:focus {
   margin: 25px 0;
   font-size: 0.9em;
   font-family: sans-serif;
-  min-width: 400px;
+  min-width: 400px; 
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
@@ -154,8 +153,13 @@ h6 {
 
 p {
   font-family: Arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.5; /* Adjust line height for readability */
-  color: #666; /* Adjust text color */
+  font-size: 9px;
+  line-height: 1; /* Adjust line height for readability */
+  color: #4f4d4d; /* Adjust text color */
   margin-bottom: 10px; /* Add some spacing between paragraphs */
+}
+
+
+ul {
+  text-align: left; /* Set text alignment to left */
 }

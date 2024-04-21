@@ -99,9 +99,9 @@ const LumpSelection = (props) => {
     return (
         <div>
             <div>
-                <h3> Lump Selection</h3>
+                {/* <h3> Lump Selection</h3> */}
                 <form onSubmit={handleSubmit} className="form-row">
-                    <table>
+                    <table className="styled-table">
                         <tbody>
                             <tr>
                                 <td>
@@ -129,23 +129,35 @@ const LumpSelection = (props) => {
                 </form>
             </div>
             <p style={{ color: 'red' }}>{infoMsg}</p>
-            {lumps.length > 0 && <div>
-                <h3> Applied Lumps</h3>
-                <ul>
-                    {lumps.map((lump) => {
-                        return <li key={lump.month}> Month: {lump.month} Amount: {lump.amount} <button onClick={() => handelClick(lump.month)}>Remove</button></li>
-                    })}
-                </ul>
-            </div>
-
-            }
-            <p>Only applicable lumps amounts will be applied<br />
-                Applied lumps will be added to the total payment for the specifc month<br />
-                Remove lumps if you no longer wish to apply it  </p>
+            {lumps.length > 0 && (
+                <div>
+                    <h3> Applied Lumps</h3>
+                    <table className="styled-table">
+                        <thead>
+                            <tr>
+                                <th>Month</th>
+                                <th>Amount</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {lumps.map((lump) => (
+                                <tr key={lump.month}>
+                                    <td>{lump.month}</td>
+                                    <td>{lump.amount}</td>
+                                    <td>
+                                        <button onClick={() => handelClick(lump.month)}>Remove</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
+            <p>
+                <ul>Only lump amounts that are applicable will be used. Applied lump sums will be included in the total payment for the specific month.</ul>
+            </p>
         </div>
-
-
-
     );
 }
 

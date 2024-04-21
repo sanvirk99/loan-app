@@ -110,7 +110,7 @@ const Input = (props) => {
     return (
         <div>
             <form onSubmit={handleSubmit} className>
-                <table>
+                <table className="styled-table">
                     <tbody>
                         <tr>
                             <td>

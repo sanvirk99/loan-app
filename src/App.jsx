@@ -104,6 +104,7 @@ function App() {
         lumps={lumps}
         setLumps={setLumps}
       />
+      </div>
       <Amortization //read the values from the input and calculate the monthly payment and interest return a info string
         loanAmount={loanAmount}
         interestRate={interestRate}
@@ -117,7 +118,7 @@ function App() {
       //setLumps={setLumps}
 
       />
-   </div>
+   
     </>
   )
 }

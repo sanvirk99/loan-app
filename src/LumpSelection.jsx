@@ -155,7 +155,7 @@ const LumpSelection = (props) => {
                 </div>
             )}
             <p>
-                <ul>Only lump amounts that are applicable will be used. Applied lump sums will be included in the total payment for the specific month.</ul>
+                Only lump amounts that are applicable will be used. Applied lump sums will be included in the total payment for the specific month.
             </p>
         </div>
     );

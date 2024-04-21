@@ -28,10 +28,10 @@ const Input = (props) => {
     //can do input validation here before setting these values
     const handleLoanAmountChange = (event) => {
 
-        // if (event.target.value.startsWith('0') && event.target.value.length > 1) {
-        //     // Remove leading zeros
-        //     event.target.value = event.target.value.replace(/^0+/, '');
-        // } 
+        if (event.target.value.startsWith('0') && event.target.value.length > 1) {
+            // Remove leading zeros
+            event.target.value = event.target.value.replace(/^0+/, '');
+        } 
 
 
         let amount = Number(event.target.value);
@@ -53,10 +53,10 @@ const Input = (props) => {
 
     const handleInterestRateChange = (event) => {
 
-        // if (event.target.value.startsWith('0') && event.target.value.length > 1) {
-        //     // Remove leading zeros
-        //     event.target.value = event.target.value.replace(/^0+/, '');
-        // } 
+        if (event.target.value.startsWith('0') && event.target.value.length > 1) {
+            // Remove leading zeros
+            event.target.value = event.target.value.replace(/^0+/, '');
+        } 
 
         
         let rate = Number(event.target.value);
@@ -71,10 +71,10 @@ const Input = (props) => {
     };
 
     const handleLoanTermChange = (event) => {
-        // if (event.target.value.startsWith('0') && event.target.value.length > 1) {
-        //     // Remove leading zeros
-        //     event.target.value = event.target.value.replace(/^0+/, '');
-        // } 
+        if (event.target.value.startsWith('0') && event.target.value.length > 1) {
+            // Remove leading zeros
+            event.target.value = event.target.value.replace(/^0+/, '');
+        } 
         //else if (event.target.value.startsWith('.')) {
 
         //     event.target.value = event.target.value.replace(/^./, '0.');

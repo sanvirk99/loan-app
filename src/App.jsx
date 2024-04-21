@@ -88,7 +88,7 @@ function App() {
               <td>{monthlyPayment.toFixed(2)}</td>
             </tr>
             <tr>
-              <td>Interest Paid Duration of Loan:</td>
+              <td>Interest Paid:</td>
               <td>{totalInterest.toFixed(2)}</td>
             </tr>
             <tr>

@@ -31,7 +31,7 @@ const Calculator = (props) => {
 
     useEffect(() => {
         let monthlyPayment = calculateMonthlyPayment(loanAmount, interestRate, loanTermYear)
-        console.log(`Monthly Payment = ${monthlyPayment} `)
+        //console.log(`Monthly Payment = ${monthlyPayment} `)
         setInfo(`Monthly Payment = ${monthlyPayment.toFixed(2)}`)
         setMonthlyPayment(monthlyPayment)
 

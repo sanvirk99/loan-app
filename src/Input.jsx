@@ -92,7 +92,7 @@ const Input = (props) => {
         }
         setInfo({ ...info, loanTermYear: '' });
         let months = Math.round(Number((event.target.value) * 12))
-        console.log(months, 'months calculated from years')
+       // console.log(months, 'months calculated from years')
         setLoanTermMonths(months);
         setLoanTermYear(years);
     };

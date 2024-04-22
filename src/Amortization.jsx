@@ -45,12 +45,12 @@ function arrayFactoryLumps(loan_amount, annualInterestRate, loanTermMonths, lump
     let loan_balance = loan_amount;
     let total_interest = 0;
     let i = 0;
-
     let lumps_applied = []
     while (loan_balance > 0) {
 
+
         if (payment > loan_balance) { //should be triggered when the last payment is less than the principal
-            console.log(loan_balance);
+
             payment = currentMonthPayment(loan_balance, annualInterestRate, 1)
             let lump = lumps.find((lump) => lump.month === (i + 1))?.amount || 0;
             let interest = calculateInterestForMonth(loan_balance, annualInterestRate)
@@ -59,7 +59,6 @@ function arrayFactoryLumps(loan_amount, annualInterestRate, loanTermMonths, lump
             loan_balance = loan_balance - towardsPrincipal;
             arr.push(new monthlyPayment(payment + lump, towardsPrincipal, interest, (i + 1), 0, total_interest))
             lumps_applied.push(i + 1);
-            console.log(payment);
             break;
         }
 
@@ -70,11 +69,11 @@ function arrayFactoryLumps(loan_amount, annualInterestRate, loanTermMonths, lump
         total_interest += interest;
         loan_balance = loan_balance - towardsPrincipal;
         arr.push(new monthlyPayment(payment + lump, towardsPrincipal, interest, (i + 1), loan_balance, total_interest))
-        lumps_applied.push(i + 1);
+        //lumps_applied.push(i + 1);
         i++;
     }
 
-    const filteredLumps = lumps.filter((lump) => !lumps_applied.includes(lump.month));
+  //  const filteredLumps = lumps.filter((lump) => !lumps_applied.includes(lump.month));
 
     return arr;
 
@@ -98,15 +97,8 @@ const Amortization = (props) => {
     //const setLumps=props.setLumps;  //only set lumps which will change the payments
     useEffect(() => {
         let paymentArray = arrayFactoryLumps(loanAmount, interestRate, loanTermMonths, lumps);
-        console.log(paymentArray);
         setPayments(paymentArray);
     }, [monthlyPayment, lumps]);
-
-    useEffect(() => {
-
-        //acount the lumps and recalculate the payments
-
-    }, [lumps])
 
     return (
         <div>

@@ -30,14 +30,14 @@ const LumpSelection = (props) => {
             return;
         }
     
-        console.log(selectedMonth)
-        console.log(lumpAmount)
+        // console.log(selectedMonth)
+        // console.log(lumpAmount)
         let temp = [...lumps];
         let month = selectedMonth;
         let amount = lumpAmount;
 
         if (temp.find((lump) => lump.month === month)) {
-            console.log('month already exists addind to existing lump')
+            //console.log('month already exists addind to existing lump')
             let index = temp.findIndex((lump) => lump.month === month);
             temp[index].amount += amount;
             setLumps(temp);
@@ -45,6 +45,7 @@ const LumpSelection = (props) => {
         }
         temp.push(new lumpObject(month, amount))
         setLumps(temp);
+       // console.log('lump added')
 
     }
 
@@ -84,12 +85,13 @@ const LumpSelection = (props) => {
     }, [lumps])
 
     const handelSelection = (event) => {
-        console.log(event.target.value)
-        setSelectedMonth(event.target.value)
+        //console.log(event.target.value)
+        let month = Number(event.target.value);
+        setSelectedMonth(month)
     }
 
     const handelInput = (event) => {
-        console.log(event.target.value)
+        //console.log(event.target.value)
         setInput(event.target.value)
         let amount = Number(event.target.value);
         setLumpAmount(amount)

@@ -18,7 +18,7 @@ It's easy to use, just input your loan details and see how extra payments impact
 
 ## Features
 
-- Users can input the loan amount, interest rate APR, loan term, and monthly payment.
+- Users can input the loan amount, interest rate APR, loan term.
 - Users can see the total interest paid over the life of the loan.
 - Users can input additional payments to see the impact on the loan.
 - Users can see the amortization schedule for the loan.
